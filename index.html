@@ -7,7 +7,12 @@
  <script type="text/javascript" src="//code.jquery.com/jquery-1.9.1.js"></script>
   <body>
   <div class="container">
-    <div class="stockTick"></div>
+  <h1>Stock Portfolio</h1>
+  <h2>Total Portfolio Value:</h2>
+  <div class="total"></div>
+  <h3>Stocks</h3>
+  <div class="stockTick"></div>
+  <div class="stockTick2"></div>
 </div>
   
 </body>
@@ -25,11 +30,21 @@ $(document).ready(function(){
     stockString +='<span class="stockSymbol"><b>'+stockInfo.t+'</b></span><br />';
       stockString +='Price: <span class="stockPrice">'+stockInfo.l+'</span><br />';
       stockString +='Change: <span class="stockChange">'+stockInfo.c+'</span><br />';
-      stockString +=' Reported at: <span>at</span> <span class="stockTime">'+stockInfo.ltt+'</span>';
+      stockString +=' Reported at: <span>at</span> <span class="stockTime">'+stockInfo.ltt+'</span><hr>';
     stockString +='</div>';
     $('.stockTick').prepend(stockString);
   });
-  
+  $.getJSON('https://finance.google.com/finance/info?client=ig&q=NYSE:USMD&callback=?',function(response){
+    var stockInfo = response[0];
+    var stockString =
+   '<div class="stockWrapper">Company: ';
+    stockString +='<span class="stockSymbol"><b>'+stockInfo.t+'</b></span><br />';
+      stockString +='Price: <span class="stockPrice">'+stockInfo.l+'</span><br />';
+      stockString +='Change: <span class="stockChange">'+stockInfo.c+'</span><br />';
+      stockString +=' Reported at: <span>at</span> <span class="stockTime">'+stockInfo.ltt+'</span>';
+    stockString +='</div>';
+    $('.stockTick2').prepend(stockString);
+  });
 });
 </script>
 </head>
